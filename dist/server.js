@@ -14,13 +14,20 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importDefault(require("mongoose"));
 const app_1 = __importDefault(require("./app"));
+const dotenv_1 = __importDefault(require("dotenv"));
+dotenv_1.default.config();
 function main() {
     return __awaiter(this, void 0, void 0, function* () {
-        yield mongoose_1.default.connect("mongodb+srv://movie-callection:Um1ufPhkGefHjuof@cluster0.30d0b.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0");
-        const port = 5000;
-        app_1.default.listen(port, () => {
-            console.log(`Example app listening on port ${port}`);
-        });
+        try {
+            yield mongoose_1.default.connect(process.env.DB_URL);
+            const port = 5000;
+            app_1.default.listen(process.env.PORT, () => {
+                console.log(`Example app listening on port ${process.env.PORT}`);
+            });
+        }
+        catch (err) {
+            console.log(err);
+        }
     });
 }
 main();

@@ -1,13 +1,16 @@
 import mongoose from "mongoose";
 import app from "./app";
+import config from "./config";
 
 async function main() {
-  await mongoose.connect(
-    "mongodb+srv://movie-callection:Um1ufPhkGefHjuof@cluster0.30d0b.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
-  );
-  const port = 5000;
-  app.listen(port, () => {
-    console.log(`Example app listening on port ${port}`);
-  });
+  try {
+    await mongoose.connect(config.port as string);
+    const port = 5000;
+    app.listen(config.port, () => {
+      console.log(`Example app listening on port ${config.port}`);
+    });
+  } catch (err) {
+    console.log(err);
+  }
 }
 main();
