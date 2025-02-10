@@ -19,5 +19,8 @@ export default tseslint.config(
             "prefer-const": "error",
             "no-console": "warn"
         }
+    },
+    {
+        ignores: ["**/dist/", "**/node_modules/"]
     }
 );
